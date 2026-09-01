@@ -48,6 +48,7 @@ function toggleMenu() {
 
     menuToggle.classList.toggle("active", isOpen);
     menuToggle.setAttribute("aria-expanded", String(isOpen));
+
     menuToggle.setAttribute(
         "aria-label",
         isOpen ? "Fechar menu" : "Abrir menu"
@@ -61,8 +62,10 @@ function closeMenu() {
 
     mainNav.classList.remove("open");
     menuToggle.classList.remove("active");
+
     menuToggle.setAttribute("aria-expanded", "false");
     menuToggle.setAttribute("aria-label", "Abrir menu");
+
     document.body.classList.remove("menu-open");
 }
 
@@ -72,6 +75,19 @@ if (menuToggle) {
 
 navLinks.forEach((link) => {
     link.addEventListener("click", closeMenu);
+});
+
+// Fecha o menu ao clicar no WhatsApp
+document.querySelectorAll(".js-whatsapp").forEach((link) => {
+    link.addEventListener("click", closeMenu);
+});
+
+// Fecha o menu com ESC
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && mainNav?.classList.contains("open")) {
+        closeMenu();
+        menuToggle?.focus();
+    }
 });
 
 window.addEventListener("resize", () => {
