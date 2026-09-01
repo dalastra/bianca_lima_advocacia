@@ -171,7 +171,7 @@ p {
     background: var(--color-gold);
     color: #fff;
     box-shadow: 0 10px 24px rgba(178, 138, 85, .2);
-    margin-top: 10px;
+    margin: 10px;
 }
 
 .btn--gold:hover {
