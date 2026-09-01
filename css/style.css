@@ -1010,6 +1010,124 @@ p {
         --header-height: 72px;
     }
 
+    .header {
+        z-index: 5000;
+    }
+
+    .container {
+        width: min(var(--container), calc(100% - 34px));
+    }
+
+    .section {
+        padding: 75px 0;
+    }
+
+    .menu-toggle {
+        display: flex;
+        position: relative;
+        z-index: 5002;
+        flex-shrink: 0;
+    }
+
+    /* Menu mobile: fechado por padrão */
+    .nav {
+        position: fixed;
+        top: var(--header-height);
+        right: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 5001;
+
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+
+        width: 100%;
+        height: calc(100dvh - var(--header-height));
+        box-sizing: border-box;
+        padding: 18px 25px 30px;
+        margin: 0;
+
+        background: var(--color-bg);
+        border-top: 1px solid var(--color-line);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+
+        transform: translate3d(100%, 0, 0);
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+
+        transition:
+            transform 280ms ease,
+            opacity 180ms ease,
+            visibility 0s linear 280ms;
+    }
+
+    /* Menu mobile: aberto */
+    .nav.open {
+        transform: translate3d(0, 0, 0);
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+        transition:
+            transform 280ms ease,
+            opacity 180ms ease;
+    }
+
+    .nav__link {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--color-line);
+        font-size: .82rem;
+    }
+
+    .nav__link::after {
+        display: none;
+    }
+
+    .nav .btn {
+        width: 100%;
+        margin: 22px 0 0;
+        box-sizing: border-box;
+        flex-shrink: 0;
+    }
+
+    .hero {
+        padding: 65px 0;
+    }
+
+    .hero__container,
+    .about__grid,
+    .faq__grid,
+    .contact__grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .hero__image {
+        width: min(100%, 450px);
+        justify-self: center;
+    }
+
+    .image-frame {
+        min-height: 500px;
+    }
+
+    .image-frame img {
+        min-height: 500px;
+    }
+}
+
+@media (max-width: 800px) {
+    :root {
+        --header-height: 72px;
+    }
+
     .container {
         width: min(var(--container), calc(100% - 34px));
     }
@@ -1026,46 +1144,20 @@ p {
 
     .nav {
         position: fixed;
-        top: var(--header-height);
-        right: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 1001;
-
-        display: flex;
-        padding: 24px 25px 35px;
-
+        inset: var(--header-height) 0 0;
         background: var(--color-bg);
-
+        padding: 35px 25px;
         flex-direction: column;
         align-items: stretch;
         gap: 0;
-
-        overflow-y: auto;
-        overscroll-behavior: contain;
-
-        border-top: 1px solid var(--color-line);
-
         transform: translateX(100%);
-        visibility: hidden;
-        opacity: 0;
-        pointer-events: none;
-
-        transition:
-            transform 300ms ease,
-            opacity 200ms ease,
-            visibility 0s linear 300ms;
+        transition: transform 300ms ease;
+        overflow-y: auto;
+        border-top: 1px solid var(--color-line);
     }
 
     .nav.open {
         transform: translateX(0);
-        visibility: visible;
-        opacity: 1;
-        pointer-events: auto;
-
-        transition:
-            transform 300ms ease,
-            opacity 200ms ease;
     }
 
     .nav__link {
@@ -1079,9 +1171,62 @@ p {
     }
 
     .nav .btn {
-        width: 100%;
-        margin: 24px 0 0;
-        flex-shrink: 0;
+        margin-top: 24px;
+    }
+
+    .hero {
+        padding: 65px 0;
+    }
+
+    .hero__container,
+    .about__grid,
+    .faq__grid,
+    .contact__grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .hero__image {
+        width: min(100%, 450px);
+        justify-self: center;
+    }
+
+    .image-frame {
+        min-height: 500px;
+    }
+
+    .image-frame img {
+        min-height: 500px;
+    }
+
+    .hero__image-caption {
+        left: 15px;
+        bottom: 20px;
+    }
+
+    .about__image {
+        order: 2;
+    }
+
+    .about__content {
+        order: 1;
+    }
+
+    .faq .section-heading {
+        position: static;
+    }
+
+    .map-card {
+        min-height: 400px;
+    }
+
+    .map-placeholder {
+        min-height: 370px;
+    }
+
+    .footer__grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
     }
 }
 

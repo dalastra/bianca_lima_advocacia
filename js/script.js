@@ -3,11 +3,6 @@
    JavaScript principal
    ========================================================= */
 
-/*
- * ALTERE SOMENTE ESTA VARIÁVEL PARA CONFIGURAR O WHATSAPP.
- * Use o número no formato internacional, sem espaços, parênteses
- * ou sinais. Exemplo: 5511999999999
- */
 const WHATSAPP_NUMBER = "5511921315354";
 
 const WHATSAPP_MESSAGE =
@@ -40,21 +35,16 @@ function setupWhatsAppLinks() {
 const menuToggle = document.querySelector("#menuToggle");
 const mainNav = document.querySelector("#mainNav");
 const navLinks = document.querySelectorAll(".nav__link");
+const mobileWhatsApp = mainNav?.querySelector(".js-whatsapp");
 
-function toggleMenu() {
+function openMenu() {
     if (!menuToggle || !mainNav) return;
 
-    const isOpen = mainNav.classList.toggle("open");
-
-    menuToggle.classList.toggle("active", isOpen);
-    menuToggle.setAttribute("aria-expanded", String(isOpen));
-
-    menuToggle.setAttribute(
-        "aria-label",
-        isOpen ? "Fechar menu" : "Abrir menu"
-    );
-
-    document.body.classList.toggle("menu-open", isOpen);
+    mainNav.classList.add("open");
+    menuToggle.classList.add("active");
+    menuToggle.setAttribute("aria-expanded", "true");
+    menuToggle.setAttribute("aria-label", "Fechar menu");
+    document.body.classList.add("menu-open");
 }
 
 function closeMenu() {
@@ -62,27 +52,27 @@ function closeMenu() {
 
     mainNav.classList.remove("open");
     menuToggle.classList.remove("active");
-
     menuToggle.setAttribute("aria-expanded", "false");
     menuToggle.setAttribute("aria-label", "Abrir menu");
-
     document.body.classList.remove("menu-open");
 }
 
-if (menuToggle) {
-    menuToggle.addEventListener("click", toggleMenu);
+if (menuToggle && mainNav) {
+    menuToggle.addEventListener("click", () => {
+        if (mainNav.classList.contains("open")) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+    });
 }
 
 navLinks.forEach((link) => {
     link.addEventListener("click", closeMenu);
 });
 
-// Fecha o menu ao clicar no WhatsApp
-document.querySelectorAll(".js-whatsapp").forEach((link) => {
-    link.addEventListener("click", closeMenu);
-});
+mobileWhatsApp?.addEventListener("click", closeMenu);
 
-// Fecha o menu com ESC
 document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && mainNav?.classList.contains("open")) {
         closeMenu();
@@ -95,7 +85,6 @@ window.addEventListener("resize", () => {
         closeMenu();
     }
 });
-
 
 /* =========================================================
    FAQ ACCORDION
